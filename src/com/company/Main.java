@@ -20,7 +20,10 @@ public class Main {
             String key = iter.next().toString();
             String[] values = dictionary.get(key);
             bigВictionary.put(key, values);
+            System.out.println(key
+                    + " - " + Arrays.toString(values));
             for (int i =0; i<values.length;i++) {
+                String stariyKlyuch = key;
                 String budushiyKlyuch = values[i];
                 ArrayList<String> strArr = new ArrayList<>(values.length);
                 strArr.addAll(Arrays.asList(values));
@@ -35,25 +38,20 @@ public class Main {
         }
 
 
-        System.out.println("Введите слово: ");
-
-        Scanner s = new Scanner(System.in);
-        String sentences = s.nextLine();
-        String[] words = sentences.split(" ");
-        Random r = new Random();
-
-        for (int i = 0; i < words.length; i++) {
-            String[] synonyms = dictionary.get(words[i]);
-            if (synonyms != null) {
-                int randomN = r.nextInt(synonyms.length);
-
-                System.out.printf(synonyms[randomN] + " ");
-
-            } else {
-                System.out.println("Не понял Вас");
+        while (true) {
+            System.err.println("Введите слово: ");
+            Scanner scanner = new Scanner(System.in);
+            String sentences = scanner.nextLine();
+            String[] words = sentences.split(" ");
+            for (int i = 0; i < words.length; i++) {
+                if (bigВictionary.get(words[i]) == null) {
+                    System.out.println("Такого слова нет");
+                } else {
+                    Random r = new Random();
+                    String[] sinonyms = bigВictionary.get(words[i]);
+                    System.out.println(sinonyms[r.nextInt(sinonyms.length)] + " ");
+                }
             }
-
         }
-
     }
 }
